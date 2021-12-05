@@ -1,0 +1,84 @@
+README
+2021/11/10 written by yanagi
+
+interSmoothedCSFFoamのインストール方法を以下に記す。
+
+1. インストールファイルの配置
+   ディレクトリ構成図に示した$FOAM_RUNディレクトリに、applications.tgzを配置する。
+
+2. インストールファイルの展開
+   $FOAM_RUNディレクトリで次のコマンドを実行して、applications.tgzを展開する。
+
+   $ tar zxvf applications.tgz
+
+3. コンパイル
+   interSmoothedCSFFoamをコンパイルするディレクトリに移動する。
+
+   $ cd applications/solvers/multiphase/interSmoothedCSFFoam
+
+   次のスクリプトを実行する。
+
+   $ ./Allwmake
+
+
+4. 簡単な動作確認
+   interSmoothedCSFFoamのヘルプを表示する。
+
+   $ interSmoothedCSFFoam -help
+   Usage: interSmoothedCSFFoam [OPTIONS]
+   Options:
+     -case <dir>       Specify case directory to use (instead of cwd)
+     -decomposeParDict <file>
+                       Use specified file for decomposePar dictionary
+     -dry-run          Check case set-up only using a single time step
+     -dry-run-write    Check case set-up and write only using a single time step
+     -parallel         Run in parallel
+     -postProcess      Execute functionObjects only
+     -doc              Display documentation in browser
+     -help             Display short help and exit
+     -help-full        Display full help and exit
+
+   Solver for two incompressible, isothermal immiscible fluids using VOF
+   phase-fraction based interface capturing.
+   With optional mesh motion and mesh topology changes including adaptive
+   re-meshing.
+
+   Using: OpenFOAM-2106 (2106) - visit www.openfoam.com
+   Build: _0d6e2e9e33-20210907
+   Arch:  LSB;label=32;scalar=64
+
+5. クリーン
+   interSmoothedCSFFoamをコンパイルするディレクトリに移動する。
+
+   $ cd applications/solvers/multiphase/interSmoothedCSFFoam
+
+   次のスクリプトを実行する。
+
+   $ ./Allwclean
+
+
+ディレクトリ構成図
+$HOME
+└── OpenFOAM
+      └── userName-v2106
+         ├── platforms
+         │   └── linux64GccDPInt32Opt
+         │       ├── bin		$FOAM_USER_APPBIN		interSmoothedCSFFoamの実行ファイルを格納するディレクトリ（自動生成）
+         │       └── lib		$FOAM_USER_LIBBIN		interSmoothedCSFFoamのライブラリを格納するディレクトリ（自動生成）
+         └── run	$FOAM_RUN
+             └── applications
+                  └── solvers
+                      └── multiphase
+                          ├── VoF
+                          └── interSmoothedCSFFoam
+                              ├── Allwclean				interSmoothedCSFFoamをコンパイルしたファイルを削除するときに使用するスクリプト
+                              ├── Allwmake				interSmoothedCSFFoamをコンパイルするときに使用するスクリプト
+                              └── transportModelsSmoothedCSF
+                                  ├── geometricVoF
+                                  ├── immiscibleIncompressibleTwoPhaseMixture
+                                  ├── incompressible
+                                  ├── interfaceProperties
+                                  │   ├── interfaceProperties.C	コードを修正したファイル
+                                  │   ├── interfaceProperties.H	同上
+                                  ├── twoPhaseMixture
+                                  └── twoPhaseProperties
